@@ -125,13 +125,11 @@ public class AccountsActivity extends PreferenceActivity {
 				//
 
 				pc_cell = new PreferenceCategory(context);
-				if(Build.VERSION.SDK_INT>10)pc_cell.setIcon(R.drawable.cell_light);
 				pc_cell.setTitle(res.getString(R.string.mobiledata) + " - " + res.getString(R.string.accounts));
 				pc_cell.setEnabled(enabled);
 
 				pc_wifi = new PreferenceCategory(context);
 				pc_wifi.setEnabled(false);
-				if(Build.VERSION.SDK_INT>10)pc_wifi.setIcon(R.drawable.wifi_light);
 				pc_wifi.setTitle(res.getString(R.string.wifi) + " - " + res.getString(R.string.accounts));
 				pc_wifi.setEnabled(enabled);
 				
@@ -148,7 +146,6 @@ public class AccountsActivity extends PreferenceActivity {
 
 						@SuppressWarnings("deprecation")
 						PreferenceScreen ps = getPreferenceManager().createPreferenceScreen(AccountsActivity.this);	
-						if(Build.VERSION.SDK_INT>10)ps.setIcon(R.drawable.cell_light);
 						ps.setTitle(ac.getAccount().name + " - " + res.getString(R.string.mobiledata));
 						ps.setSummary(ac.getAccount().type);
 						pc_cell.addPreference(ps);
@@ -222,7 +219,6 @@ public class AccountsActivity extends PreferenceActivity {
 
 						@SuppressWarnings("deprecation")			
 						PreferenceScreen ps = getPreferenceManager().createPreferenceScreen(AccountsActivity.this);	
-						if(Build.VERSION.SDK_INT>10)ps.setIcon(R.drawable.wifi_light);
 						ps.setTitle(ac.getAccount().name + " - " + res.getString(R.string.wifi));
 						ps.setSummary(ac.getAccount().type);
 						pc_wifi.addPreference(ps);
