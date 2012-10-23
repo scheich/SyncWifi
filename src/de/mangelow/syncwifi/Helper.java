@@ -48,7 +48,7 @@ public class Helper {
 
 	//
 
-	public static ArrayList<Object> accounts = new ArrayList<Object>();	
+	public static ArrayList<Object> accounts;	
 
 	public boolean populateAccountsList(Context context) {
 		if(D)Log.d(TAG, "populateAccountsList");

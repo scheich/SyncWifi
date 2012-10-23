@@ -35,7 +35,7 @@ import android.view.Window;
 public class AccountsActivity extends PreferenceActivity {
 
 	private final String TAG = "SW";
-	private final boolean D = true;
+	private final boolean D = false;
 
 	private Helper mHelper = new Helper();
 	private Context context;
