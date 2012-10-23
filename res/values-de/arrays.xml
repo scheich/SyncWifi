@@ -1,0 +1,58 @@
+<!--
+*
+* Licensed under the Apache License, Version 2.0 (the "License"); you may
+* not use this file except in compliance with the License. You may obtain
+* a copy of the License at
+* http://www.apache.org/licenses/LICENSE-2.0
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*
+*/
+-->
+<resources>
+
+    <string-array name="authorities_names">
+        <item>Twitter</item>
+        <item>Kontakte</item>
+        <item>Google Reader</item>
+        <item>Google Mail</item>
+        <item>Google Fotos</item>
+        <item>Picasa Web Albums</item>
+        <item>Sofort-Upload</item>
+        <item>Google+</item>
+        <item>Kalender</item>
+        <item>Dateien</item>
+    </string-array>
+    <string-array name="times">
+        <item>Ausgeschaltet</item>
+        <item>Jede Minute</item>
+        <item>Alle 5 Minuten</item>
+        <item>Alle 10 Minuten</item>
+        <item>Alle 15 Minuten</item>
+        <item>Alle 30 Minuten</item>
+        <item>Jede Stunde</item>
+        <item>Alle 2 Stunden</item>
+        <item>Alle 3 Stunden</item>
+        <item>Alle 6 Stunden</item>
+        <item>Alle 12 Stunden</item>
+        <item>Alle 24 Stunden</item>
+    </string-array>
+    <string-array name="times_values">
+        <item>0</item>
+        <item>1</item>
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>120</item>
+        <item>180</item>
+        <item>360</item>
+        <item>720</item>
+        <item>1440</item>
+    </string-array>
+
+</resources>
