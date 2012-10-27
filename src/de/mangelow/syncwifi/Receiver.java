@@ -14,6 +14,7 @@
 package de.mangelow.syncwifi;
 
 import de.mangelow.syncwifi.Helper;
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -23,11 +24,12 @@ import android.util.Log;
 public class Receiver extends BroadcastReceiver {
 
 	private final String TAG = "SW";
-	private final boolean D = false;
+	private final boolean D = true;
 
 	private Helper mHelper = new Helper();
 
 	public static final String ACTION_PERIODIC_SYNC = "ACTION_PERIODIC_SYNC";
+	public static final String ACTION_CANCEL_NOTIFICATION = "ACTION_CANCEL_NOTIFICATION";
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
@@ -46,6 +48,11 @@ public class Receiver extends BroadcastReceiver {
 			if (action.equals(ACTION_PERIODIC_SYNC)) {
 				if(D)Log.d(TAG, "ACTION_PERIODIC_SYNC");
 				// TODO
+			}
+			if (action.equals(ACTION_CANCEL_NOTIFICATION)) {
+				if(D)Log.d(TAG, "ACTION_CANCEL_NOTIFICATION");
+				NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+				mNotificationManager.cancel(Helper.NOTIFICATION_ID);
 			}
 		}
 	}

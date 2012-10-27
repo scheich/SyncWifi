@@ -49,6 +49,7 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="de.mangelow.syncwifi.Receiver.ACTION_PERIODIC_SYNC" />
+                <action android:name="de.mangelow.syncwifi.Receiver.ACTION_CANCEL_NOTIFICATION" />
             </intent-filter>
         </receiver>
     </application>

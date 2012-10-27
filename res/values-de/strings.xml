@@ -24,5 +24,9 @@
     <string name="noaccounts_summary">Konnte keinen Konten finden.</string>
     <string name="periodicsync">Zeitintervall</string>
     <string name="pleasechoose">Bitte auswählen:</string>
-
+    <string name="notifications">Benachrichtigungen</string>
+    <string name="connectedto">Verbunden zu</string>
+    <string name="enabled">aktiviert</string>
+    <string name="disabled">deaktiviert</string>
+    
 </resources>

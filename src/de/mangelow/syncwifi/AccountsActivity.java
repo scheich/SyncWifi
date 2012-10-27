@@ -48,6 +48,8 @@ public class AccountsActivity extends PreferenceActivity {
 	private PreferenceCategory pc_cell;
 	private PreferenceCategory pc_wifi;
 
+	private ListPreference lp_notifications;
+	
 	//
 
 	@Override
@@ -117,11 +119,37 @@ public class AccountsActivity extends PreferenceActivity {
 
 						pc_cell.setEnabled(newvalue);
 						pc_wifi.setEnabled(newvalue);
-
+						lp_notifications.setEnabled(newvalue);
+						
 						return true;
 					}
 				});
 
+				int notifications = mHelper.loadIntPref(context, "notifications", mHelper.NOTIFICATIONS);
+
+				final String [] notifications_entries = res.getStringArray(R.array.notifications);
+				String [] notifications_values = new String[] { "0", "1", "2" };
+				
+				lp_notifications = new ListPreference(AccountsActivity.this);
+				lp_notifications.setEnabled(enabled);
+				lp_notifications.setTitle(res.getString(R.string.notifications));
+				lp_notifications.setEntries(notifications_entries);
+				lp_notifications.setEntryValues(notifications_values);
+				lp_notifications.setDialogTitle(res.getString(R.string.pleasechoose));
+				lp_notifications.setSummary(notifications_entries[notifications]);
+				lp_notifications.setValue(String.valueOf(notifications));
+				lp_notifications.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+					public boolean onPreferenceChange(Preference preference, Object newValue) {
+						final String summary = newValue.toString();
+						ListPreference lp = (ListPreference) preference;						
+						int newvalue = lp.findIndexOfValue(summary);
+						lp.setSummary(notifications_entries[newvalue]);
+						mHelper.saveIntPref(context, "notifications", newvalue);
+
+						return true;
+					}
+				}); 
+				
 				//
 
 				pc_cell = new PreferenceCategory(context);
@@ -136,6 +164,7 @@ public class AccountsActivity extends PreferenceActivity {
 				int length = Helper.accounts.size();
 				if(length>0) {
 					root.addPreference(cbp_enabled);
+					root.addPreference(lp_notifications);
 
 					// MobileData Accounts
 					root.addPreference(pc_cell);	

@@ -66,5 +66,10 @@
         <item>720</item>
         <item>1440</item>
     </string-array>
+    <string-array name="notifications">
+        <item>Disabled</item>
+        <item>Statusbar</item>
+        <item>Long Toast</item>
+    </string-array>
 
 </resources>

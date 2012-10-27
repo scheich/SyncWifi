@@ -14,6 +14,7 @@
 package de.mangelow.syncwifi;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 
 import de.mangelow.syncwifi.Ac;
@@ -22,6 +23,8 @@ import de.mangelow.syncwifi.At;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -31,6 +34,9 @@ import android.content.SyncAdapterType;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo.State;
 import android.util.Log;
+import android.view.Gravity;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Helper {
@@ -42,11 +48,14 @@ public class Helper {
 
 	public final boolean SYNC = false;
 	public final int PERIODIC_SYNC = 0;
+	public final int NOTIFICATIONS = 0;
 
 	public final int CELL = 0;
 	public final int WIFI = 1;
 
 	//
+
+	public static final int NOTIFICATION_ID = 437280947;
 
 	public static ArrayList<Object> accounts;	
 
@@ -110,6 +119,7 @@ public class Helper {
 		}
 		return true;
 	}
+	@SuppressWarnings("deprecation")
 	public void setAccounts(Context context, int conn, boolean auto) {
 
 		if(Helper.accounts==null) {
@@ -156,14 +166,55 @@ public class Helper {
 			}			
 		}
 
-		if(D&&auto&&enabled>0|disabled>0) {
-			String msg = "Mobile Data - ";
-			if(conn==WIFI)msg = "Wifi - ";			
-			if(enabled>0)msg += enabled + " enabled";
+		//
+
+		int notifications = loadIntPref(context, "notifications", NOTIFICATIONS);
+
+		if(notifications>0&&auto&&enabled>0|disabled>0) {			
+
+			String network = context.getResources().getString(R.string.mobiledata);					
+			if(conn==WIFI)network = context.getResources().getString(R.string.wifi);
+
+
+			String titel =  context.getResources().getString(R.string.connectedto) + " " + network;
+
+			String msg = "";
+			if(enabled>0)msg += enabled + " " + context.getResources().getString(R.string.enabled);
 			if(enabled>0&&disabled>0)msg += ", ";
-			if(disabled>0)msg += disabled + " disabled";
-			Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
-		}
+			if(disabled>0)msg += disabled + " " + context.getResources().getString(R.string.disabled);	
+
+			if(notifications==1) {			
+
+				NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+				mNotificationManager.cancel(NOTIFICATION_ID);
+
+				Notification mNotification = new Notification(R.drawable.ic_launcher, msg, System.currentTimeMillis());
+				mNotification.flags |= Notification.FLAG_AUTO_CANCEL;		        
+
+				Intent i = new Intent(context, AccountsActivity.class);
+				i.setFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+
+				PendingIntent pi = PendingIntent.getActivity(context, 0, i, NOTIFICATION_ID);
+				mNotification.setLatestEventInfo(context, titel, msg, pi);
+
+				mNotificationManager.notify(NOTIFICATION_ID, mNotification);
+
+				// 
+
+				Intent intent = new Intent(context, Receiver.class);
+				intent.setAction(Receiver.ACTION_CANCEL_NOTIFICATION);	
+
+			    PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 234324243, intent, 0);
+			    AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+			    alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 20000, pendingIntent);
+			}
+			else {
+				Toast toast = Toast.makeText(context, titel + "\n" + msg, Toast.LENGTH_LONG);
+				((TextView)((LinearLayout)toast.getView()).getChildAt(0)).setGravity(Gravity.CENTER_HORIZONTAL);
+				toast.show();
+			}
+
+		}		
 	}
 	public boolean getSync(Account account, String authority) {
 		return ContentResolver.getSyncAutomatically(account, authority);

@@ -25,5 +25,9 @@
     <string name="noaccounts_summary">Can\'t find any accounts.</string>
     <string name="periodicsync">Time interval</string>
     <string name="pleasechoose">Please choose:</string>
+    <string name="notifications">Notifications</string>
+    <string name="connectedto">Connected to </string>
+    <string name="enabled">enabled</string>
+    <string name="disabled">disabled</string>
 
 </resources>
