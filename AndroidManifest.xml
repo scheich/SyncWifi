@@ -14,8 +14,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.mangelow.syncwifi"
-    android:versionCode="16"
-    android:versionName="2.1" >
+    android:versionCode="17"
+    android:versionName="2.15" >
 
     <uses-sdk
         android:minSdkVersion="7"
